@@ -1,0 +1,25 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animatedtext1 {
+  animation: fadeIn 2.5s ease-out forwards;
+}
+.animatedtext2 {
+  animation: fadeIn 2.5s ease-out forwards;
+}
+
+.repobtn{
+   transition: transform 0.3s ease-in-out;
+}
+
+.repobtn:hover {
+  transform: translateY(-5px);
+}
