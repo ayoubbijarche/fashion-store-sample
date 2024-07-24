@@ -29,7 +29,7 @@ const Nav = () => {
 
 
   return(
-    <Navbar shouldHideOnScroll>
+    <Navbar>
       <NavbarBrand>
         <Logo />
         <p className="font-bold text-inherit">Online Store</p>
