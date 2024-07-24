@@ -5,8 +5,15 @@ import { Button } from "@nextui-org/button";
 import { Image } from "@nextui-org/image";
 import pb from "../lib/pb";
 
+// Define the structure of your product
+interface Product {
+  title: string;
+  price: string;
+  img: string;
+}
+
 const List = () => {
-  const [products, setProducts] = useState([]);
+  const [list, setList] = useState<Product[]>([]);
 
   useEffect(() => {
     fetchProducts();
@@ -15,9 +22,14 @@ const List = () => {
   const fetchProducts = async () => {
     try {
       const records = await pb.collection("products").getList(1, 50, {
-        sort: '-created',
+        sort: "-created",
       });
-      setProducts(records.items);
+      const productList: Product[] = records.items.map((item) => ({
+        title: item.title || item.name, // Adjust based on your PocketBase field name
+        price: item.price,
+        img: item.img || item.image, // Adjust based on your PocketBase field name
+      }));
+      setList(productList);
     } catch (e) {
       console.error("Error fetching products:", e);
     }
@@ -25,9 +37,14 @@ const List = () => {
 
   return (
     <div className="gap-8 grid grid-cols-2 sm:grid-cols-4">
-      {products.map((item, index) => (
-        <Card shadow="sm" key={item.id} isPressable onPress={() => console.log("item pressed")}>
-          <CardBody className="overflow-visible p-0 w-64 h-72">
+      {list.map((item, index) => (
+        <Card
+          shadow="sm"
+          key={index}
+          isPressable
+          onPress={() => console.log("item pressed")}
+        >
+          <CardBody className="overflow-visible p-0  w-64 h-72">
             <Image
               shadow="sm"
               radius="lg"
@@ -51,7 +68,9 @@ const Products = () => {
   return (
     <div className="flex flex-grow flex-col w-full h-[50px] mt-4 ">
       <div className="flex w-full h-[50px] mt-0 justify-center">
-        <h1 className="font-medium text-5xl w-[500px] text-center">Fresh And High Quality Clothes.</h1>
+        <h1 className="font-medium text-5xl w-[500px] text-center">
+          Fresh And High Quality Clothes.
+        </h1>
       </div>
       <div className="flex mt-24 ml-6">
         <List />
