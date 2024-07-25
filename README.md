@@ -1,5 +1,5 @@
 # Tutorial
-  [![Watch the video(https://drive.google.com/file/d/1IRwxsPb61DfnjREzBYYfvnICx0ehnM_G/view)]
+  [!Watch the video(https://drive.google.com/file/d/1IRwxsPb61DfnjREzBYYfvnICx0ehnM_G/view)]
 
 ```bash
 #first run npm install to install all dependencis
