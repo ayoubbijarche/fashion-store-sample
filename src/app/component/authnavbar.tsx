@@ -1,20 +1,30 @@
+"use client";
 import {
   Navbar,   
   NavbarBrand,   
   NavbarContent,   
   NavbarItem,   
-  NavbarMenuToggle,  
-  NavbarMenu,  
-  NavbarMenuItem
+
 } from "@nextui-org/navbar";
-import {Avatar, AvatarGroup, AvatarIcon} from "@nextui-org/avatar";
+import {Avatar} from "@nextui-org/avatar";
 import Link from "next/link";
-import {Button, ButtonGroup} from "@nextui-org/button";
+import {Button} from "@nextui-org/button";
 import { Logo } from "./logo";
+import pb from "../lib/pb";
+
 
 const Navauth = () => {
+  
+  const Signout = (e: React.FormEvent<HTMLFormElement>) =>{
+    try{
+      pb.authStore.clear();
+      console.log("signed out");
+    }catch(e){
+      console.log("failed to signout");
+    }
+  }
   return(
-    <Navbar shouldHideOnScroll>
+    <Navbar>
       <NavbarBrand>
         <Logo />
         <p className="font-bold text-inherit">Online Store</p>
@@ -41,6 +51,11 @@ const Navauth = () => {
            <Avatar isBordered color="primary" src="https://i.pravatar.cc/150?u=a04258a2462d826712d" />
         </NavbarItem>
       </NavbarContent>
+        <NavbarItem>
+          <Button onClick={Signout} color="primary" href="/" variant="flat">
+            Sign out
+          </Button>
+        </NavbarItem>
     </Navbar>
   )
 }

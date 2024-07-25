@@ -13,6 +13,12 @@ import Link from "next/link";
 import {Button, ButtonGroup} from "@nextui-org/button";
 import { Logo } from "./logo";
 import { useState } from "react";
+import Login from "./login";
+import Signup from "./signup";
+
+
+
+
 
 const Nav = () => {
   
@@ -23,10 +29,16 @@ const Nav = () => {
     setlogin(true);
   }
  
-  const setloginsignup = () => {
+  const setsignupclicked = () => {
     setsignup(true);
   }
 
+  const setclickedtrue = () => {
+    setlogin(true)
+  }
+  const setclickedfalse = () => {
+    setlogin(false)
+  }
 
   return(
     <Navbar>
@@ -51,8 +63,11 @@ const Nav = () => {
         <NavbarItem className="hidden lg:flex">
           <Button color="primary" variant="ghost" onClick={setloginclicked} >Login</Button>
         </NavbarItem>
+
+        {clickedlogin? <Login setclickedfalse={setclickedfalse}/> : !clickedlogin}
+        {clickedsignup? <Signup/> : !clickedsignup}
         <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
+          <Button onClick={setsignupclicked} color="primary" variant="flat">
             Sign Up
           </Button>
         </NavbarItem>

@@ -5,7 +5,6 @@ import { Button } from "@nextui-org/button";
 import { Image } from "@nextui-org/image";
 import pb from "../lib/pb";
 
-// Define the structure of your product
 interface Product {
   title: string;
   price: string;
@@ -20,19 +19,23 @@ const List = () => {
   }, []);
 
   const fetchProducts = async () => {
-    try {
-      const records = await pb.collection("products").getList(1, 50, {
-        sort: "-created",
-      });
-      const productList: Product[] = records.items.map((item) => ({
-        title: item.title || item.name, // Adjust based on your PocketBase field name
+  try {
+    const records = await pb.collection("products").getList(1, 50, {
+      sort: '-created',
+    });
+      const productList: Product[] = records.items.map(item => {
+      const imgUrl = pb.files.getUrl(item, item.img);
+      console.log("Constructed image URL:", imgUrl);
+      return {
+        title: item.title || item.name,
         price: item.price,
-        img: item.img || item.image, // Adjust based on your PocketBase field name
-      }));
-      setList(productList);
-    } catch (e) {
-      console.error("Error fetching products:", e);
-    }
+        img: imgUrl,
+      };
+    });
+    setList(productList);
+  } catch (e) {
+    console.error("Error fetching products:", e);
+  }
   };
 
   return (
@@ -50,7 +53,7 @@ const List = () => {
               radius="lg"
               width="100%"
               alt={item.title}
-              className="w-full object-cover h-[280px]"
+              className="w-full object-cover h-[290px]"
               src={item.img}
             />
           </CardBody>
